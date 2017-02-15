@@ -171,17 +171,26 @@ findrunsbook(y,3)
 pred.rain = function(x, k) {
   n = length(x)
   result = rep(NA,n)
-  
-  for(i in 1:n-k+1){
-    if(sum(x[i:i+k-1])>=k/2){
+  for(i in 1:(n-k+1)){
+    if(sum(x[i:(i+k-1)])>=k/2){
       result[i+k] = 1
-    }
-    else{
+    }else{
       result[i+k]  = 0
     }
   }
   return(result)
 }
 
-y = c(1,0,1,1,0,1,0,1,1,1,0,0,0)
+y = c(1,1,1,1,0,1,0,1,1,1,0,0,0)
 pred.rain(y, 3)
+#Take a deeper look at the example later.
+
+predb = function(x,k){
+  n = length(x)
+  k2 = k/2
+  pred = vector(length = n-k)
+  sm = sum(x[1:k])
+  if(sm>=k2) pred[1] = 1 else pred[1] = 0
+  
+  
+}
