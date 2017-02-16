@@ -185,12 +185,63 @@ y = c(1,1,1,1,0,1,0,1,1,1,0,0,0)
 pred.rain(y, 3)
 #Take a deeper look at the example later.
 
+#Book Solution 1
+preda = function(x,k){
+  n = length(x) 
+  k2 = k/2
+  pred = vector(n-k) # Predicted vector will not include prediction for first k days because we do not have data to predict those
+  
+  for ( i in 1:(n-k)){
+    # Get sum of k days if it is greater than k/2 i.e # of 1s is higher than # of 0s then predict the next day as 1
+    # Note prediction is stored with index 'i' in prediction vector
+    if (sum(x[i:(i+k-1)]) >= k2) pred[i] = 1 else pred[i] = 0
+  }
+  # x[(k+1):n] are the given vector minus the first k days
+  # abs(pred-x[(k+1):n]) gives the entries where the prediction and actual answer differed. Mean gives the # avg error
+  return(mean(abs(pred-x[(k+1):n])))
+}
+
+#Book solution 2
 predb = function(x,k){
   n = length(x)
   k2 = k/2
+  
+  # Predicted vector will not include prediction for first k days because we do not have data to predict those
   pred = vector(length = n-k)
+  
+  # First k days
   sm = sum(x[1:k])
+  
+  #prediction for first k days
   if(sm>=k2) pred[1] = 1 else pred[1] = 0
   
+  if(n-k>=2){ #if n-k == 1 then we can only predict 1 day that we already predicted ; if n-k<1 then can't really predict anything
+    for ( i in 2:(n-k)){ # Day k+1 (i = 1) = first prediction; prediction for i from 2 to n-k; this gives prediction for k+1th day to nth
+      sm = sm + x[i+k-1] -x[i-1] # Sliding window; Remove yesterday's data and get data from 1 day after kth day
+      if(sm >= k2) pred[i] = 1 else pred[i] =0
+    }  
+  }
+  # x[(k+1):n] are the given vector minus the first k days
+  # abs(pred-x[(k+1):n]) gives the entries where the prediction and actual answer differed. Mean gives the # avg error
+  return(mean(abs(pred-x[(k+1):n])))
+}
+
+# Book solution 3
+# This solution uses function cumsum that gives a cumulative sum of the vector
+#eg.
+y = c(5,2,-3,8)
+cumsum(y) #cumulative sum of y = 5,7,4,12 
+
+predc = function(x,k){
+  n = length(x)
+  k2 = k/2
+  pred = vector(n-k)
+  sm = sum(x[1:k])
+  if(sm > k2) pred[1] =1 else pred[1] = 0
+  if(n-k>=2){
+    for ( i in (2:(n-k+1))){
+      
+    }
+  }
   
 }
