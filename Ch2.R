@@ -226,7 +226,7 @@ predb = function(x,k){
   return(mean(abs(pred-x[(k+1):n])))
 }
 
-# Book solution 3
+
 # This solution uses function cumsum that gives a cumulative sum of the vector
 #eg.
 y = c(5,2,-3,8)
@@ -235,13 +235,204 @@ cumsum(y) #cumulative sum of y = 5,7,4,12
 predc = function(x,k){
   n = length(x)
   k2 = k/2
-  pred = vector(n-k)
+  pred = vector(length = n-k)
   sm = sum(x[1:k])
-  if(sm > k2) pred[1] =1 else pred[1] = 0
+  sm = cumsum(x)
+  
+  if(sm[k] > k2) pred[1] =1 else pred[1] = 0
   if(n-k>=2){
-    for ( i in (2:(n-k+1))){
-      
+    for ( i in (2:(n-k))){
+      if((sm[i+k-1]-sm[i-1])>=2) pred[i] = 1 else pred[i] = 0
     }
   }
-  
+  return(mean(abs(pred-x[(k+1):n])))  
 }
+
+y = c(1,1,1,1,0,1,0,1,1,1,0,0,0)
+predc(y, 3)
+
+#Vectorized Operations
+u = c(5,2,8)
+v = c(1,3,9)
+u > v
+
+#Function on vector
+w = function(x) return(x+1)
+w(u)
+
+#Sqrt function on a vector
+sqrt(1:9)
+
+#Rounding fucntion on a vector
+ y = c(1.1, 3.4, 5.5)
+ z = round(y)
+z
+
+
+# + Function
+y = c(1,2,3,4)
+y+1
+
+#Vectorized function wiht scalar arguments
+f = function(x,c) return((x+c)^2)
+f(1:3,0) # was vectorized in the fuction
+f(1:3,1:3)
+
+#if c is indeed a scalar; need to check explicity
+f = function(x,c){
+  if(length(c)!= 1){
+    stop("Vector not allowed")
+  }
+  return((x+c)^2)
+}
+
+f(1:3,1:3)
+
+#Vector in, Matrix out
+z12 = function(z){
+  return(c(z,(z^2)))
+}
+
+z12(5)
+z12(1:2)
+
+#using sapply (simplify apply)
+sapply(1:8, z12)
+#sapply(x,f) applied the function f() to each element of x and converts the result to matrix
+
+#Lets try examples of sapply
+sapply(1:8, mean)
+sapply(-1:-8, abs)
+sapply(1:8, sqrt)
+
+z3 = function(z){
+  return(c(z,z^2,z^3))
+}
+sapply(1:5, z3)
+
+
+#NA and NULL Values
+#Using NA:
+x = c(88, NA, 12, 168, 13)
+x
+mean(x)
+mean(x, na.rm = TRUE) #na.rm = remove null values
+
+x = c(88, NULL, 12, 168, 13)
+mean(x) # Null doesnt have same issue as NA
+
+#There are multiple NA values for each mode
+x = c(5, NA, 12)
+mode(x[1])
+mode(x[2])
+
+
+y = c("abc","def", NA)
+mode(y[1])
+mode(y[2])
+mode(y[3])
+# NA is character in 2nd one where its numeric in first example
+
+#Using NULL
+#Use of NUll is to build up vectors in loops, in which each iteration adds another element to the vector
+#In the simple example, we build up a vector of even number
+
+#build a vector of even numbers in 10
+z = NULL
+for (i in 1:10) if (i%%2 == 0 ) z = c(z,i)
+z
+
+#NULL is a special object of no-value in r, whereas NA has a value that is not available
+length(NULL)
+length(NA)
+
+
+#Filtering
+# Generating filter indices
+z = c(5,2,-3, 8)
+w = z[z*z>8] # all the values such that val*Val is greater than 8
+w
+z*z > 8 # This returns TRUE FALSE boolean values and the TRUE FALSE values are used to select from z
+
+# the results is same here
+z[c(TRUE, FALSE, TRUE, TRUE)]
+z[z*z>8]
+
+#Extracting condition from one vector and applying the result to another vector
+z = c(5,2,-3, 8)
+j = z*z>8
+j
+
+y = c(1,2,30,5)
+y[j]
+
+# MOre filtering
+x = c(1,35, 34, 2, 39)
+x[x>30] #elements greater than 30
+
+x[x>30] = 0 #assign 0 to elements that are greater than 30
+x
+
+
+#Filtering with subset() function
+#subset cna be used for filtering; How NA values are handled are the different
+x = c(6, 1:3, NA, 12)
+x
+x[x>5] # NA is counted in here
+subset(x,x>5) #NA is ignored here.
+
+#Selection function  which()
+#filtering gives you the values, which() gives you the position
+z = c(5,2, -3, 7)
+which(z*z>8)
+z[which(z*z>8)]
+
+
+#Location of element that meets a condition
+find1 = function(x) return(which(x==1))
+
+x = c(3,1,3,4)
+find1(x)
+
+x = c(2,1,4,5,1)
+find1(x)
+
+
+#A Vectorized if-then-else: The ifelse function
+x = 1:10
+y = ifelse(x %% 2 == 0,5,12)
+y
+
+#same as this
+for(i in x){
+  if(x[i]%%2==0)
+    {y[i]=5}
+  else {y[i]=12}
+}
+y
+
+x = c(5,2,9,12)
+ifelse(x>6, 2*x, 3*x)
+
+#Extended Example: A measure of Association
+#Comparing two vectors if they increase or decrease together
+
+findud2 = function (u, v){
+  m = length(u)
+  n = length(v)
+  k = min(m,n)
+  score = 1
+  for(i in 1:(k-1)){
+    if(((u[i+1]> u[i]) & (v[i+1] > v[i]))| ((u[i+1]< u[i]) & (v[i+1] <v[i])) | ((u[i+1] == u[i]) & (v[i+1] == v[i]))){
+      score = score + 1#c(score,1)
+    }
+    else score = c(score,0)
+  }
+  return(mean(score))
+}
+
+u = c(5,12,13,3,6,0 ,1,15,16,8,88)
+v = c(4,2,3,23,6,10,11,12,6,3,2)
+findud2(u,v)
+
+
