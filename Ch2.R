@@ -416,15 +416,14 @@ ifelse(x>6, 2*x, 3*x)
 
 #Extended Example: A measure of Association
 #Comparing two vectors if they increase or decrease together
-
 findud2 = function (u, v){
   m = length(u)
   n = length(v)
   k = min(m,n)
-  score = 1
+  score = NULL
   for(i in 1:(k-1)){
     if(((u[i+1]> u[i]) & (v[i+1] > v[i]))| ((u[i+1]< u[i]) & (v[i+1] <v[i])) | ((u[i+1] == u[i]) & (v[i+1] == v[i]))){
-      score = score + 1#c(score,1)
+      score = c(score,1)
     }
     else score = c(score,0)
   }
@@ -435,4 +434,107 @@ u = c(5,12,13,3,6,0 ,1,15,16,8,88)
 v = c(4,2,3,23,6,10,11,12,6,3,2)
 findud2(u,v)
 
+#Books solution
+# Its a great solution
+# write a function fundud() that converts vector v to 1s and 0s representing an element increasing or decreasing relative to previous on
 
+finddud = function(v){
+  vud = v[-1] - v[-length(v)] # this interesting. v[-1] gives all element except first element and v[-length(v)] gives all elements except the last one
+                              # eg. v = c(1,2,4,7) -> v[-1] - v[-length[v]] == c(2,4,7) - c(1,2,4) thus giving the difference between consecutive elements
+  return(ifelse(vud>0,1,-1))
+
+# This function is also interesting
+udcorr = function(x,y){
+    ud = lapply(list(x,y), finddud) #findud only takes a single vector input; but here input x, y are put into a list and sent it to the function without any issue
+    return(mean(ud[[1]]==ud[[2]])) #1st column of the list belong to item-x and 2nd column belong to item-y
+  }
+}
+
+#Another solution using sign() and diff()
+w = c(1,5,3,4,1,6,9)
+diff(w) #differnece of consecutive numbers
+sign(diff(w)) #+ve or -ve sign represented as +1 or -1
+
+udcorr2 = function(x,y) return(mean(sign(diff(x)) == sign(diff(y))))
+udcorr2(u,v)
+
+
+#Extended example: Recoding an abalone data set
+# Due to vector nature of the arguments, ifelse canb nested
+g = c("M","F","F","I","M","M","F")
+ifelse(g == "M", 1, ifelse(g == "F",2,3))
+
+# you can also creat subgroups
+m = which(g == "M")
+f = which(f =="F")
+i = which(g == "I")
+
+#Alternative to store the groups in a list
+grps = list()
+for(gen in c("M","F","I")) grps[[gen]] = which(g == gen)
+
+which(g =="M")
+grps2 = list()
+grps2[["M"]] = c(1,5,6)
+grps2[["F"]] = c(2,3,7)
+grps2[["I"]] = c(4)
+grps2
+
+#Drawing graphs for abalone dataset
+
+aba = read.csv("abalone.data", header = T, as.is = T)
+colnames(aba) = c("Gender","Length", "Diameter","Height","WholeWt", "ShuckedWt","ViscWt","ShellWt","Rings")
+grps = list()
+for(gen in c("M","F")) grps[[gen]] = which(aba$Gender == gen)
+abam = aba[grps$M,]
+abaf = aba[grps$F,]
+par(mfrow = c(1,1))
+plot(abam$Length, abam$Diameter, col = "red")
+plot(abaf$Length, abaf$Diameter, pch = "x", new = FALSE, col = "green")
+
+# More compact code instead of 2 plot commands
+pchvec = ifelse(aba$Gender == "M", "o","x")
+plot(aba$Length, aba$Diameter, pch = pchvec)
+
+
+# Testing Vector Equality
+x = c(1:3)
+y = c(1,3,4)
+x == y #gives element wise equality
+all(x==y) # gives if all elements of vectors are equal hence the vectors are equal
+identical(x,y) #gives if vectors are equal
+
+x = 1:2
+y = c(1,2)
+all(x==y)
+identical(x,y)
+# Oops! not same, this happens because vectors have different type of elements
+typeof(x)
+typeof(y)
+
+
+#Vector Element Names
+x = c(1,2,4)
+x
+names(x)
+names(x)=c("ab","bc","cd")
+x
+x["ab"] # vectors can be called by their names
+
+# Assing null to remove names
+names(x) = NULL
+x
+
+#More on concatenate = c()
+u = c(5,2,3)
+typeof(u)
+u = c(5,2,"abc")
+typeof(u)
+u = c(5,3, list(a = 1, b= 4))
+typeof(u)
+u
+# if mix mode elements then all the elements are converted to be the lowest element type
+
+# c() flattens the vectors
+u = c(1:5, c(2:7))
+u

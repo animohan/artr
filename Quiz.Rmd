@@ -1,0 +1,104 @@
+---
+title: "Quiz"
+author: "Anish Mohan"
+date: "February 17, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+x = c(5,25,3,-34,33, 89, 7, 1, 90, 66)
+```
+
+Length of the vector x
+```{r}
+```
+
+### Vector Operations
+
+
+Insert 199 in 3rd position
+Declare a new vector with values 2,4
+Declare a new empty vector of length 2 elements and set their values are 2,4
+Declare 2 vectors of length 2 and get them as a matrix; 2 vectors form columns
+Declare 2 vectors of length 2 and get them as a matrix; 2 vectors form rows
+Declare 2 vectors of length 2 and get them as a matrix; 2 vectors form rows; Increment as follows (1,1) by 1, (1,2) by 2, (2,1) by 3 and (2,2) by 4
+Declare a new matrix with data = c(11,22,33,44)
+Add, Subtract, Divide, Multiply and Mod the above matrix with c(1,2,2,1)
+u = c(22,35, 45) v = c(31, 22, 42); Are each element of u greater than corr element in v
+Write a function to consume vector and increment its value by 1, give the sqrt, give the sqr, element multiplication, multiply by itself
+Write a function, takes 2 vector arguments, adds them and find the square.
+Write a function, takes 1 vector and 1 scalar arguments, adds them and find the square.
+print elements if greater than 5
+print element if  square of elements is greater than 10
+print indices of elements greater than 25
+if element of x are greater than 25 assign them to be -1; no for loop
+What is the differnece between using subset() vs normal filtering x[x>2]
+
+
+### Vector Indexing
+print last element
+print all elements except first element
+print all element except last element
+print 1st and 3rd element
+print odd numbered elements
+What is difference between for i in k+5 vs for i in (k+25) ?
+
+### Sequence
+Sequence from 1:50
+Sequence from 1:50, skip 5
+Sequence from 1:50 with length 15
+
+In for loop : for(i in 1:length(x)) what happens if x =NULL
+
+### Creating repeated vectors
+repeated vector of c(1,2) with total length = 30
+repeated vector of c(1,2,3,4,5) with total length = 30; write compact
+repeated vector of c(1,2,3,4,5) where each element is repeated thrice
+
+### Use any() and all()
+For x declared above (x = c(5,25,3,-34,33, 89, 7, 1, 90, 66)) are all elements greater than 7
+For x declared above (x = c(5,25,3,-34,33, 89, 7, 1, 90, 66)) are any elements greater than 7
+
+### Code workout
+Given a series of 1s and 0s find indices where runs of 1s start; runs have to be greater than1
+Time series data: 1 = rain, 0 = no rain. Predict rain for tomorrow, based on majority for last k days and compare results
+Do the timeseries example and use cumsum() function there
+
+### Using simply apply or sapply()
+Function: Input a vector, output = vector and its square; write with and without sapply; return can be a matrix
+
+### NA & NULL difference
+Is mode of NA numeric or character or something else
+What is length of NA and NULL
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+### ifelse
+x = 1:10; print elements divisible by 2; use ifelse
+x = 1:10, if number less than 5 cube it else square it
+
+### Code Work out Example:
+Two series given; find out the avg number of times they increase or decrease together
+Same as above; checks if using diff can simplify the code
+Now can you right this in 1 line (Hint use diff and sign function)
+
+g = c("M","F","F","I","M","M","F"); assign locations of M to variable m, F to var f and I to var I
+
+### Example Workout
+Read abalone data; assign names to columns(Gender,Length,Diameter,Height,WholeWt,ShuckedWt,ViscWt,ShellWt,Rings)
+plot male and female length vs diameter; males/females should have different plot symbol
+plot male and female length vs diameter; males/females should have different plot symbol plot function should be used one time
+
+
+What is the difference between all(x == y) and identical(x,y) ? what are their outputs for x = 1:2, y = c(1,2)
+
+x = 1:5; Assign names to the elements 1 = ab, 2 = bc etc;
+Remove the names from x = 1:5
+
+
+# Chapter 3: Matrices and Array
