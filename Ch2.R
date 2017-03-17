@@ -28,7 +28,7 @@ m + 10:13
 #Declaraitons
 x = 2 #works fine
 
-#want y to be an two element vector
+#want y to be an two element vector; reason: needs declaration first
 #y[1] = 2 #Throws error
 #y[2] = 4 #throws error
 
@@ -50,7 +50,7 @@ x + c(1,5) #(1,1) was replicated and added everywhere
 #c(1,5) was replciated as c(1,5,1,5,1,5) and when changed into matrix i became [[1,5],[5,1],[1,5]]
 
 # Look at the result of the folling
-matrix(nrow = 3, ncol = 2, data= c1,2,1,2,1,2)
+matrix(nrow = 3, ncol = 2, data= c(1,2,1,2,1,2))
 
 #Commong Vector Operations
 2+3

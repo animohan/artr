@@ -23,13 +23,21 @@ Length of the vector x
 
 Insert 199 in 3rd position
 Declare a new vector with values 2,4
-Declare a new empty vector of length 2 elements and set their values are 2,4
+Declare a new empty vector of length 2 elements and set their values are 2,4 
+  # http://stackoverflow.com/questions/22104774/how-to-initialize-a-vector-with-fixed-length-in-r
 Declare 2 vectors of length 2 and get them as a matrix; 2 vectors form columns
 Declare 2 vectors of length 2 and get them as a matrix; 2 vectors form rows
 Declare 2 vectors of length 2 and get them as a matrix; 2 vectors form rows; Increment as follows (1,1) by 1, (1,2) by 2, (2,1) by 3 and (2,2) by 4
+  #increment by adding a new array or another method to add a ?
+Declare a matrix with rbind c(1,1) 3 times; now add c(1,5) to it, what is the expected result?
+  
 Declare a new matrix with data = c(11,22,33,44)
+  # what happens when you do not set nrow.
+
 Add, Subtract, Divide, Multiply and Mod the above matrix with c(1,2,2,1)
 u = c(22,35, 45) v = c(31, 22, 42); Are each element of u greater than corr element in v
+
+
 Write a function to consume vector and increment its value by 1, give the sqrt, give the sqr, element multiplication, multiply by itself
 Write a function, takes 2 vector arguments, adds them and find the square.
 Write a function, takes 1 vector and 1 scalar arguments, adds them and find the square.

@@ -99,7 +99,7 @@ y = unlist(z)
 class(y) #In this case unlist gives vector of numbers
 
 #mixed case
-w = list(a = 5, b = "xyz")
+w = list(a = 5, b = "xyz")[1]
 wu = unlist(w)
 class(wu) # Vector of characters in this case; R chooses lowest common denomiator variable type
 #Note that we can set the names of the vector to null
