@@ -130,26 +130,31 @@ all(x>8)
 all(x<12)
 
 #Extended Example: Funding Runs of consecurive ones
-
+#Given a series of 1s and 0s find indices where runs of 1s start; runs have to be greater than one 1
+#Modified version: add another parameter 'k' to function that finds runs of k length
 findruns = function(x){
   runindex = NULL
-  if(length(x) == 0) return(0)
-  
+  current.run.index = NULL
   runcount = 0;
+  
+  if(length(x) == 0) return(0)
   for(i in 1:length(x)){
     if(x[i]==0){
-      if(runcount > 1){append(runindex,current.run.index)}
       runcount = 0
     }
     if(x[i] == 1 ){
-      if(runcount ==0){ current.run.index = i}
+      if(runcount ==0){ 
+        current.run.index = i
+        runindex = c(runindex,current.run.index)
+        }
       runcount = runcount + 1
     }
   }
   return(runindex)
 }
 
-findruns(c(1,1)) #NEED TO DEBUG THIS CODE
+k = findruns(c(0,1,0,1,1,0)) #NEED TO DEBUG THIS CODE
+print(k)
 
 #BOOKS VERSION (This has good potential; think about it)
 findrunsbook = function(x,k){
@@ -160,7 +165,7 @@ findrunsbook = function(x,k){
   }
   return(runs)
 }
-y = c(1,1,1)
+y = c(1,1,1,1)
 findrunsbook(y,3)
 
 
