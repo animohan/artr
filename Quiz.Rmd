@@ -47,7 +47,7 @@ print indices of elements greater than 25
 if element of x are greater than 25 assign them to be -1; no for loop
 What is the differnece between using subset() vs normal filtering x[x>2]
   #Covered Ch2.R 
-
+Use an inbuilt function to find which elements (index) of x are above 25
 
 ### Vector Indexing
 print last element
@@ -89,13 +89,13 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 
 ### ifelse
-x = 1:10; print elements divisible by 2; use ifelse
+x = 1:10; print elements divisible by 2 as -1 others as +1; use ifelse; also do it using filtering
 x = 1:10, if number less than 5 cube it else square it
 
 ### Code Work out Example:
 Two series given; find out the avg number of times they increase or decrease together
 Same as above; checks if using diff can simplify the code
-Now can you right this in 1 line (Hint use diff and sign function)
+Now can you write this in 1 line (Hint use diff and sign function)
 
 g = c("M","F","F","I","M","M","F"); assign locations of M to variable m, F to var f and I to var I
 

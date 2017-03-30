@@ -444,13 +444,15 @@ findud2(u,v)
 # write a function fundud() that converts vector v to 1s and 0s representing an element increasing or decreasing relative to previous on
 
 finddud = function(v){
-  vud = v[-1] - v[-length(v)] # this interesting. v[-1] gives all element except first element and v[-length(v)] gives all elements except the last one
+  vud = v[-1] - v[-length(v)] # this interesting. v[-1] gives all element except first element and 
+                              # v[-length(v)] gives all elements except the last one
                               # eg. v = c(1,2,4,7) -> v[-1] - v[-length[v]] == c(2,4,7) - c(1,2,4) thus giving the difference between consecutive elements
   return(ifelse(vud>0,1,-1))
 
 # This function is also interesting
 udcorr = function(x,y){
-    ud = lapply(list(x,y), finddud) #findud only takes a single vector input; but here input x, y are put into a list and sent it to the function without any issue
+    ud = lapply(list(x,y), finddud) #findud only takes a single vector input; but here input x, y 
+                                    # are put into a list and sent it to the function without any issue
     return(mean(ud[[1]]==ud[[2]])) #1st column of the list belong to item-x and 2nd column belong to item-y
   }
 }
